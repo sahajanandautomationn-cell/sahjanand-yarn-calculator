@@ -7,6 +7,7 @@ import Calculator from "./Calculator";
 export default function CalculatorPage() {
   const router = useRouter();
 
+  // 🔒 Protect calculator route
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn !== "true") {
