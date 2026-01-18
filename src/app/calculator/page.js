@@ -9,10 +9,11 @@ export default function CalculatorPage() {
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedIn");
-    if (!loggedIn) {
+    if (loggedIn !== "true") {
       router.replace("/");
     }
   }, [router]);
 
   return <Calculator />;
 }
+
