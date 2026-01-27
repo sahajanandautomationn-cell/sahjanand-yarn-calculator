@@ -33,7 +33,8 @@ export default function Calculator() {
   const [newQuality, setNewQuality] = useState({
     name: "",
     ends: "",
-    count: "",
+    wrapCount: "",
+    weftCount: "",
     pick: "",
     panno: ""
   });
@@ -41,6 +42,7 @@ export default function Calculator() {
   const [warpEnds, setWarpEnds] = useState("");
   const [warpType, setWarpType] = useState("Count");
   const [warpCount, setWarpCount] = useState("");
+  const [weftCount, setweftCount] = useState("");
   const [warpRate, setWarpRate] = useState("");
   const [warpShortage, setWarpShortage] = useState(10);
 
@@ -90,7 +92,8 @@ export default function Calculator() {
     const q = qualities[name];
     setQuality(name);
     setWarpEnds(q.ends);
-    setWarpCount(q.count);
+    setWarpCount(q.wrapCount);
+    setWeftCount(q.weftCount);
     setPick(q.pick);
     setPanno(q.panno);
   }
@@ -193,9 +196,15 @@ export default function Calculator() {
             />
 
             <input
-              placeholder="Count"
-              value={newQuality.count}
-              onChange={e => setNewQuality({ ...newQuality, count: e.target.value })}
+              placeholder="Wrap Count"
+              value={newQuality.WrapCount}
+              onChange={e => setNewQuality({ ...newQuality, wrapcount: e.target.value })}
+            />
+
+            <input
+              placeholder="weft Count"
+              value={newQuality.WeftCount}
+              onChange={e => setNewQuality({ ...newQuality, weftcount: e.target.value })}
             />
 
             <input
