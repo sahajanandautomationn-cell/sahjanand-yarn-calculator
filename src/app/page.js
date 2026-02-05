@@ -1,44 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "./AuthContext";
 
-export default function LoginPage() {
-  const [password, setPassword] = useState("");
+export default function RootPage() {
   const router = useRouter();
+  const { user, loading } = useAuth();
 
-  // 🔒 One-time login check
   useEffect(() => {
-    const loggedIn = localStorage.getItem("loggedIn");
-    if (loggedIn === "true") {
-      router.replace("/calculator");
+    if (!loading) {
+      if (user) {
+        router.replace("/calculator");
+      } else {
+        router.replace("/login");
+      }
     }
-  }, [router]);
-
-  const handleLogin = () => {
-    if (password === "1234") {
-      localStorage.setItem("loggedIn", "true");
-      router.replace("/calculator");
-    } else {
-      alert("Wrong password");
-    }
-  };
+  }, [user, loading, router]);
 
   return (
-    <div className="login-wrapper">
-      <div className="login-card">
-        <h2>🔐 Sahjanand Login</h2>
-
-        <input
-          type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button onClick={handleLogin}>Login</button>
-      </div>
+    <div className="container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <p style={{ color: "var(--text-secondary)" }}>Loading...</p>
     </div>
   );
 }
-

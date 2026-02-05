@@ -1,20 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { useAuth } from "../AuthContext";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Calculator from "./Calculator";
 
 export default function CalculatorPage() {
   const router = useRouter();
+  const { user, loading } = useAuth();
 
-  // 🔒 Protect calculator route
   useEffect(() => {
-    const loggedIn = localStorage.getItem("loggedIn");
-    if (loggedIn !== "true") {
-      router.replace("/");
+    if (!loading && !user) {
+      router.replace("/login");
     }
-  }, [router]);
+  }, [user, loading, router]);
+
+  if (loading || !user) return <div className="container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", color: "var(--text-secondary)" }}>Loading Calculator...</div>;
 
   return <Calculator />;
 }
-
